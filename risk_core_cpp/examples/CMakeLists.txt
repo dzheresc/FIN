@@ -1,0 +1,3 @@
+add_executable(example_batch example_batch.cpp)
+target_link_libraries(example_batch risk_core_cpp)
+

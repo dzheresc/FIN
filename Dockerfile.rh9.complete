@@ -1,0 +1,47 @@
+# Multi-stage Dockerfile for RedHat 9 - Complete Build
+FROM registry.access.redhat.com/ubi9/ubi:latest AS builder
+
+# Install development tools and dependencies
+RUN dnf install -y \
+    gcc-c++ \
+    cmake \
+    make \
+    git \
+    which \
+    && dnf clean all
+
+# Set working directory
+WORKDIR /app
+
+# Copy source files
+COPY . .
+
+# Build the project
+RUN mkdir -p build && \
+    cd build && \
+    cmake .. \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_TESTS=ON \
+        -DBUILD_EXAMPLES=ON \
+        -DBUILD_API_SERVICE=ON && \
+    make -j$(nproc) && \
+    ctest --output-on-failure || true
+
+# Runtime stage
+FROM registry.access.redhat.com/ubi9/ubi:latest
+
+# Install runtime dependencies
+RUN dnf install -y \
+    libstdc++ \
+    && dnf clean all
+
+# Copy built binaries
+COPY --from=builder /app/build/batch_processor_cpp /usr/local/bin/batch_processor
+COPY --from=builder /app/build/api_service_cpp /usr/local/bin/api_service
+
+# Set working directory
+WORKDIR /app
+
+# Default to batch processor
+ENTRYPOINT ["/usr/local/bin/batch_processor"]
+

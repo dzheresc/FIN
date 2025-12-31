@@ -1,0 +1,27 @@
+# Dockerfile for RedHat 9 (RHEL 9 / Rocky Linux 9 / AlmaLinux 9)
+FROM registry.access.redhat.com/ubi9/ubi:latest
+
+# Install development tools and dependencies
+RUN dnf install -y \
+    gcc-c++ \
+    cmake \
+    make \
+    git \
+    which \
+    && dnf clean all
+
+# Set working directory
+WORKDIR /app
+
+# Copy source files
+COPY . .
+
+# Build the project
+RUN mkdir -p build && \
+    cd build && \
+    cmake .. -DCMAKE_BUILD_TYPE=Release && \
+    make -j$(nproc)
+
+# Default command
+CMD ["/bin/bash"]
+

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile.rh9
+    image: financial-risk-system:builder
+    volumes:
+      - ./build:/app/build
+
+  batch-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile.rh9.batch
+    image: financial-risk-system:batch
+    depends_on:
+      - builder
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+    command: ["--help"]
+
+  api-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.rh9.api
+    image: financial-risk-system:api
+    depends_on:
+      - builder
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+

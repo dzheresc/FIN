@@ -1,0 +1,17 @@
+# Dockerfile for RedHat 9 - Batch Processor
+FROM registry.access.redhat.com/ubi9/ubi:latest
+
+# Install runtime dependencies
+RUN dnf install -y \
+    libstdc++ \
+    && dnf clean all
+
+# Copy built binary (assumes build stage)
+COPY --from=builder /app/build/batch_processor_cpp /usr/local/bin/batch_processor
+
+# Set working directory
+WORKDIR /app
+
+# Default command
+ENTRYPOINT ["/usr/local/bin/batch_processor"]
+
