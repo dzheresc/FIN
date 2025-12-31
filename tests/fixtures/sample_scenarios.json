@@ -1,0 +1,22 @@
+[
+  {
+    "scenario_id": "scenario-1",
+    "scenario_name": "Bull Market",
+    "market_movement_bps": 200,
+    "volatility_change_bps": -50,
+    "currency_rate_changes": {},
+    "interest_rate_change_bps": 0
+  },
+  {
+    "scenario_id": "scenario-2",
+    "scenario_name": "Bear Market",
+    "market_movement_bps": -150,
+    "volatility_change_bps": 100,
+    "currency_rate_changes": {
+      "EUR": -50,
+      "GBP": -75
+    },
+  "interest_rate_change_bps": -25
+  }
+]
+

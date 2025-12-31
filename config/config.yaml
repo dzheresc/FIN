@@ -1,0 +1,60 @@
+# Financial Risk Evaluation System Configuration
+
+# Database Configuration
+database:
+  type: sqlite  # Options: sqlite, postgresql, mysql
+  url: sqlite:///risk_evaluations.db
+  # For PostgreSQL/MySQL, uncomment and configure:
+  # host: localhost
+  # port: 5432
+  # name: risk_evaluations
+  # user: postgres
+  # password: ""
+
+# Application Settings
+application:
+  name: Financial Risk Evaluation System
+  version: "0.1.0"
+  debug: false
+  secret_key: "change-this-in-production"
+
+# API Settings
+api:
+  host: "0.0.0.0"
+  port: 5000
+  cors_origins:
+    - "*"
+  rate_limit:
+    enabled: false
+    per_minute: 60
+
+# Currency Settings
+currency:
+  default_base: USD
+  rates_api: null  # Optional: URL to currency rates API
+  # Default exchange rates (to USD)
+  default_rates:
+    USD: 1.0
+    EUR: 1.10
+    GBP: 1.25
+    JPY: 0.0067
+    CHF: 1.12
+    CAD: 0.74
+    AUD: 0.65
+
+# File Storage
+storage:
+  csv_output_dir: "./output"
+  max_csv_file_size: 10485760  # 10MB in bytes
+
+# Logging
+logging:
+  level: INFO  # Options: DEBUG, INFO, WARNING, ERROR
+  file: null  # Optional: path to log file
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Pagination
+pagination:
+  default_page_size: 10
+  max_page_size: 100
+

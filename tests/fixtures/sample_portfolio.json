@@ -1,0 +1,21 @@
+{
+  "portfolio_id": "test-portfolio-1",
+  "assets": [
+    {
+      "id": "ASSET001",
+      "currency": "USD",
+      "value": 100000
+    },
+    {
+      "id": "ASSET002",
+      "currency": "EUR",
+      "value": 50000
+    },
+    {
+      "id": "ASSET003",
+      "currency": "GBP",
+      "value": 75000
+    }
+  ]
+}
+

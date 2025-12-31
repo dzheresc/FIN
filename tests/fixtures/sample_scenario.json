@@ -1,0 +1,12 @@
+{
+  "scenario_id": "test-scenario-1",
+  "scenario_name": "Market Up, EUR Down",
+  "market_movement_bps": 100,
+  "volatility_change_bps": 50,
+  "currency_rate_changes": {
+    "EUR": -25,
+    "GBP": 0
+  },
+  "interest_rate_change_bps": 25
+}
+
